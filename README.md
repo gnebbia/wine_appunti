@@ -7,11 +7,11 @@ programmi Windows per diversi sistemi *NIX, questo ci permette di
 avere prestazioni analoghe a quelle di un sistema Windows. 
 Questo software ci da la possibilità di creare infiniti ambienti Windows, 
 ognuno con la propria configurazione, ogni ambiente windows è chiamato nel 
-gergo wine “wine prefix” o “wine bottle”, nella prossima sezione 
+gergo wine "wine prefix" o "wine bottle", nella prossima sezione 
 vedremo come creare quindi un ambiente Windows e come 
 configurarlo, una volta fatto, ci basterà solo installare 
 l'applicazione desiderata, starà a noi poi decidere se 
-condividere la “wine bottle” tra più programmi oppure se usare 
+condividere la "wine bottle" tra più programmi oppure se usare 
 una wine bottle per ogni applicazione installata. 
 Una wine bottle occupa approssimativamente 40MB.
 
@@ -19,7 +19,7 @@ Una wine bottle occupa approssimativamente 40MB.
 ## Creare un ambiente per un programma Windows
 
 Per creare un ambiente per un programma Windows dobbiamo creare 
-un “wine prefix” detto anche "wine bottle", per farlo eseguiamo i 
+un "wine prefix" detto anche "wine bottle", per farlo eseguiamo i 
 seguenti comandi da terminale:
 
 ```sh
@@ -88,7 +88,7 @@ infatti la directory C:, cioe' il cosiddetto "C drive".
 
 Di default su un sistema a 64 bit, wine si avvierà in modalità 64 
 bit, possiamo cambiare questo comportamento andando a settare la 
-variabile “WINEARCH=win32” in questo modo le applicazioni avviate 
+variabile "WINEARCH=win32" in questo modo le applicazioni avviate 
 verranno lanciate in modalità di compatibilità 32 bit.
 
 Una volta settato il Wine Prefix possiamo lanciare il nostro 
@@ -115,12 +115,12 @@ se questo non dovesse avere successo possiamo eseguire:
 ```sh
  WINEDEBUG=+loaddll 
  # ci permette di capire quali librerie DLL vengono usate e qualora vengano 
- # caricate come “builtin” o “ native”.
+ # caricate come "builtin" o " native".
 ```
 molte volte gli errori sono dovuti a dipendenze mancanti, 
-possiamo installarle manualmente oppure installare “winetricks” 
-che ci aiuterà ad installarle, ad esempio se il programma “
-mio.exe” da un errore dicendo che la libreria “mfc42.dll” è 
+possiamo installarle manualmente oppure installare "winetricks" 
+che ci aiuterà ad installarle, ad esempio se il programma "
+mio.exe" da un errore dicendo che la libreria "mfc42.dll" è 
 mancante, possiamo eseguire:
 
 ```sh
@@ -187,21 +187,21 @@ Vediamo alcuni esempi di settaggio della variabile WINEDEBUG:
 ```sh
  WINEDEBUG=+all,-relay 
  # mostra i messaggi di tutti i canali, 
- # eccetto il canale “relay”
+ # eccetto il canale "relay"
 ```
 ###  La variabile d'ambiente WINEDLLOVERRIDES
 
 Non è sempre possibile runnare applicazioni con librerie DLL 
 builtin di wine, a volte semplicemente le librerie native 
 funzionano meglio, queste impostazioni possono essere gestite via 
-GUI da “winecfg”, ma possiamo regolarle anche con la variabile 
-d'ambiente “WINEDLLOVERRIDES”. Vediamo alcuni esempi:
+GUI da "winecfg", ma possiamo regolarle anche con la variabile 
+d'ambiente "WINEDLLOVERRIDES". Vediamo alcuni esempi:
 
 ```sh
  WINEDLLOVERRIDES="comdlg32,shell32=n,b" 
  # carica le librerie 
- # comdlg32 e shell32 come native “n”, se il caricamento da native 
- # dovesse fallire allora le carica come builtin “b”
+ # comdlg32 e shell32 come native "n", se il caricamento da native 
+ # dovesse fallire allora le carica come builtin "b"
 ```
 ```sh
  WINEDLLOVERRIDES="comdlg32=b,n;shell32=b;comctl32=n;oleaut32=" 
@@ -225,7 +225,7 @@ Le librerie DLL vengono comunemente caricate nel seguente ordine:
 
 La variabile d'ambiente WINEARCH specifica l'architettura Windows 
 da supportare, a volte infatti ci può capitare lanciando un 
-programma con wine di incappare nell'errore “Bad Exe Format”, 
+programma con wine di incappare nell'errore "Bad Exe Format", 
 questo molto probabilmente è un problema dovuto al settaggio di 
 questa variabile, di default su un sistema a 64 bit, questa 
 variabile anche se non impostata è di default impostata per 
@@ -285,20 +285,20 @@ di memoria a wine, in questo modo:
 ```sh
  ln -s /mnt/cdrom ~/.winePrefixDirectory/dosdevices/d: 
  # in questo modo l'istanza di wine con WINEPREFIX specificato, vedrà 
- # il cdrom come drive “d:”
+ # il cdrom come drive "d:"
 ```
 
 ### Porte Seriali e Parallele
 
 
 La configurazione di porte seriali e parallele è molto simile 
-alla configurazione dei “drive” di memoria, cioè ci basterà 
-creare un link simbolico in “~/.winePrefixDirectory/dosdevices” 
-col nome del device. In windows i device seriali hanno nomi come “
-com1”, “com2”, ecc... mentre i device paralleli vanno con “lpt1”, 
-“lpt2”, ecc... Ad esempio per configurare una porta seriale e una 
-porta parallela una volta posizionati nella directory “
-~/.winePrefixDirectory/dosdevices” eseguiamo:
+alla configurazione dei "drive" di memoria, cioè ci basterà 
+creare un link simbolico in "~/.winePrefixDirectory/dosdevices" 
+col nome del device. In windows i device seriali hanno nomi come "
+com1", "com2", ecc... mentre i device paralleli vanno con "lpt1", 
+"lpt2", ecc... Ad esempio per configurare una porta seriale e una 
+porta parallela una volta posizionati nella directory "
+~/.winePrefixDirectory/dosdevices" eseguiamo:
 
 ```sh
  ln -s /dev/ttyS0 com1
@@ -309,13 +309,13 @@ porta parallela una volta posizionati nella directory “
 
 ### Network Shares
 
-Le condivisioni di rete sono mappate all'interno della directory “
-unc/” quindi qualsiasi programma che prova ad accedere al 
-percorso “\\myserver\some\file” cercherà in “
-~/.wine/dosdevices/unc/myserver/some/file”, ad esempio nel caso 
-avessimo usato Samba per montare “\\myserver\some” su “
-/mnt/smb/myserver/some”, una volta posizionati all'interno di “
-~/.wine/dosdevices” allora possiamo eseguire:
+Le condivisioni di rete sono mappate all'interno della directory "
+unc/" quindi qualsiasi programma che prova ad accedere al 
+percorso "\\myserver\some\file" cercherà in "
+~/.wine/dosdevices/unc/myserver/some/file", ad esempio nel caso 
+avessimo usato Samba per montare "\\myserver\some" su "
+/mnt/smb/myserver/some", una volta posizionati all'interno di "
+~/.wine/dosdevices" allora possiamo eseguire:
 
 ```sh
  ln -s /mnt/smb/myserver/some unc/myserver/some
@@ -328,8 +328,8 @@ localmente, se non c'è CUPS, viene utilizzato il vecchio sistema
 di printing BSD-Printing, tutte le stampanti elencate in 
 /etc/printcap sono installate automaticamente in Wine, Wine ha 
 bisogno di un file PPD per ogni stampante anche se un file 
-chiamato “generic.ppd” è installato con Wine; possiamo usare il 
-comando “lpr” per stampare un documento all'interno di Wine.
+chiamato "generic.ppd" è installato con Wine; possiamo usare il 
+comando "lpr" per stampare un documento all'interno di Wine.
 
 ### Scanner
 
@@ -338,7 +338,7 @@ all'hardware, le API TWAIN builtin di wine, semplicemente
 forwardano le richieste alle librerie SANE di Linux; quindi prima 
 di utilizzare SANE, dobbiamo prima assicurarci di poter accedere 
 allo scanner interessato attraverso SANE; inoltre assicuriamoci 
-di avere a disposizione il programma “xscanimage” utilizzato per 
+di avere a disposizione il programma "xscanimage" utilizzato per 
 scansionare un'immagine; normalmente questo è contenuto nel 
 pacchetto sane-frontends.
 
@@ -382,14 +382,13 @@ possiamo verificare i moduli installati eseguendo:
 ```
 ## Registro di Sistema di Windows
 
-Tutte le impostazioni settate con “winecfg” fatta eccezione per 
+Tutte le impostazioni settate con "winecfg" fatta eccezione per 
 le configurazioni sui drive montati, sono salvate nel registro di 
 sistema, in Windows questo registro è un repository centrale per 
 la configurazione del sistema operativo e delle varie 
 applicazioni.
 
 ### Struttura del Registro di Sistema di Windows
-
 
 Il registro di sistema di Windows è molto molto complesso, qui ci 
 limiteremo alle basi, quello che dobbiamo conoscere è:
@@ -415,6 +414,7 @@ limiteremo alle basi, quello che dobbiamo conoscere è:
     configurazione di un utente specifico.
 
 Queste informazioni sono salvate nei seguenti file:
+
 * system.reg
   -- Questo file contiene HKEY_LOCAL_MACHINE
 
@@ -425,12 +425,12 @@ Queste informazioni sono salvate nei seguenti file:
   -- Questo file contiene HKEY_USERS\.Default (ergo, le 
     impostazioni default a livello utente)
 
-Non è consigliabile editare con editor di testo questi file, ma è 
-consigliato accedere alle impostazioni attraverso il tool “
-regedit”, con “wine regedit”; una voce di particolare interesse 
-per gli utenti Wine è “HKEY_CURRENT_USER\Software\Wine”, in 
+Non e' consigliabile editare con editor di testo questi file, ma è 
+consigliato accedere alle impostazioni attraverso il tool "
+regedit", con "wine regedit"; una voce di particolare interesse 
+per gli utenti Wine è "HKEY_CURRENT_USER\Software\Wine", in 
 questa area del registro vengono memorizzate tutti i settaggi 
-impostati da “winecfg”.
+impostati da "winecfg".
 
 ## Troubleshooting
 
@@ -438,8 +438,8 @@ Cosa posso provare per risolvere problemi con un programma
 specifico ?
 
 * controllare che il giusto WINEPREFIX sia utilizzato
-* verificare la configurazione del wine prefix con “winecfg”
-* cambiare versione di Windows da “winecfg”, a volte cambiare versione 
+* verificare la configurazione del wine prefix con "winecfg"
+* cambiare versione di Windows da "winecfg", a volte cambiare versione 
   di windows può risolvere problemi
 * controllare i problemi sulle librerie attivando i messaggi di debug attraverso
   -- WINEDEBUG=+loaddll wine percorso/al/programma.exe
@@ -447,8 +447,8 @@ specifico ?
   -- WINEDEBUG=err+all wine percorso/al/programma.exe
 * usare diverse modalità grafiche
   -- questo è ottenibile attraverso il cambio di impostazioni 
-    attraverso “winecfg”, da qui possiamo selezionare tra la 
-    modalità “Desktop” e la modalità “normal managed”, questa 
+    attraverso "winecfg", da qui possiamo selezionare tra la 
+    modalità "Desktop" e la modalità "normal managed", questa 
     configurazione può effetivamente fare la differenza
 
 ### Alcuni Problemi Riscontrati
@@ -460,8 +460,8 @@ In alcune versioni di wine, come ad esempio wine per alcune
 distro (e.g. Debian) non ci installa un'istanza di mono (versione 
 open-source di .NET) per ogni prefix appena creato, questo ci può 
 dare dei problemi, ad esempio potrebbe non farci caricare pagine 
-eseguendo “wine iexplore”, l'errore in console sarà qualcosa del 
-tipo “Could not load wine-gecko. HTML rendering will be disabled”,
+eseguendo "wine iexplore", l'errore in console sarà qualcosa del 
+tipo "Could not load wine-gecko. HTML rendering will be disabled",
 per risolvere questo problema è consigliabile utilizzare la 
 versione di wine fornita dal sito con i propri repository.
 
