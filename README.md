@@ -1,14 +1,4 @@
-<!--
-.. title: Wine Tutorial
-.. slug: wine_tutorial 
-.. date: 2018-07-06 14:20:00 UTC+02:00
-.. tags:
-.. category:
-.. link:
-.. description:
-.. type: text
--->
-
+# Wine Appunti
 
 ## Introduzione
 
